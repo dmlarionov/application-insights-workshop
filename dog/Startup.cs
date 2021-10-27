@@ -8,9 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Polly;
+using Polly.Extensions.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace dog
@@ -34,9 +37,9 @@ namespace dog
             services.AddSingleton<DogService>();
             services.AddSingleton<VaccinationService>();
 
-            services.AddHttpClient("grooming", c => c.BaseAddress = new Uri(Configuration["Endpoints:grooming"]));
-            services.AddHttpClient("vaccination", c => c.BaseAddress = new Uri(Configuration["Endpoints:vaccination"]));
-            services.AddHttpClient("sterilization", c => c.BaseAddress = new Uri(Configuration["Endpoints:sterilization"]));
+            services.AddHttpClient("grooming", c => c.BaseAddress = new Uri(Configuration["Endpoints:grooming"])).AddPolicyHandler(GetRetryPolicy());
+            services.AddHttpClient("vaccination", c => c.BaseAddress = new Uri(Configuration["Endpoints:vaccination"])).AddPolicyHandler(GetRetryPolicy());
+            services.AddHttpClient("sterilization", c => c.BaseAddress = new Uri(Configuration["Endpoints:sterilization"])).AddPolicyHandler(GetRetryPolicy());
 
             services.AddControllers();
         }
@@ -57,6 +60,14 @@ namespace dog
             {
                 endpoints.MapControllers();
             });
+        }
+
+        static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
         }
     }
 }
