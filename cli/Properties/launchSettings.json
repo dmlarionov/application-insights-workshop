@@ -3,7 +3,8 @@
     "cli": {
       "commandName": "Project",
       "environmentVariables": {
-        "Endpoints__apigw": "http://localhost:49160"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Endpoints__apigw": "http://localhost:5000"
       }
     }
   }

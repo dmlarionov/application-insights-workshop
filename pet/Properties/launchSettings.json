@@ -18,13 +18,14 @@
       }
     },
     "pet": {
-      "commandName": "Docker",
+      "commandName": "Project",
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "APPINSIGHTS_INSTRUMENTATIONKEY": "603d1f1d-2ec9-4d9d-9611-938dca9aa5e9"
       },
       "dotnetRunMessages": "true",
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:5004"
     },
     "Docker": {
       "commandName": "Docker",
