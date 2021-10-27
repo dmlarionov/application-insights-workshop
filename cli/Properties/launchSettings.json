@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "cli": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Endpoints__apigw": "http://localhost:49153"
+      }
+    }
+  }
+}
