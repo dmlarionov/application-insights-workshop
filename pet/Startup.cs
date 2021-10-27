@@ -40,8 +40,7 @@ namespace pet
 
             services.AddHttpClient("cat", c => c.BaseAddress = new Uri(Configuration["Endpoints:cat"]));
             services.AddHttpClient("dog", c => c.BaseAddress = new Uri(Configuration["Endpoints:dog"]));
-            services.AddHttpClient("foo", c => c.BaseAddress = new Uri(Configuration["Endpoints:foo"]));
-            services.AddHttpClient("bar", c => c.BaseAddress = new Uri(Configuration["Endpoints:bar"]));
+            services.AddHttpClient("grooming", c => c.BaseAddress = new Uri(Configuration["Endpoints:grooming"]));
 
             services.AddControllers();
         }

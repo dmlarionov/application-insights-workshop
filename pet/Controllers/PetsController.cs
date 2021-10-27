@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using pet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,21 @@ namespace pet.Controllers
         public IActionResult Play()
         {
             _logger.LogWarning("Attempt to play with the pets!!");
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Groom()
+        {
+            _logger.LogWarning("Grooming all the pets!!");
+            var pets = (await _clientFactory.CreateClient("dog").GetFromJsonAsync<List<Pet>>("api/dog"))
+                .Concat(await _clientFactory.CreateClient("cat").GetFromJsonAsync<List<Pet>>("api/cat"));
+            foreach(var pet in pets)
+            {
+                var response = await _clientFactory.CreateClient("grooming").PostAsJsonAsync("api/groom", pet);
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception("Weird thing happened!");
+            }
             return Ok();
         }
     }

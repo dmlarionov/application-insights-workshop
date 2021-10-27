@@ -30,6 +30,8 @@ namespace grooming
             services.AddSingleton<ITelemetryInitializer>(new CustomTelemetryInitializer());
             services.AddApplicationInsightsTelemetry();
 
+            services.AddSingleton<GroomingService>();
+
             services.AddControllers();
         }
 
