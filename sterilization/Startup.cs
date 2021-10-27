@@ -2,6 +2,7 @@ using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,7 @@ namespace sterilization
             services.AddSingleton(typeof(ITelemetryChannel), new InMemoryChannel() { DeveloperMode = true });
             services.AddSingleton<ITelemetryInitializer>(new CustomTelemetryInitializer());
             services.AddApplicationInsightsTelemetry();
-            services.AddControllers();
+            services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,11 +43,10 @@ namespace sterilization
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(e =>
             {
-                endpoints.MapControllers();
+                e.MapPost("/api/sterialize",
+                    async c => await c.Request.ReadFromJsonAsync<Pet>());
             });
         }
     }

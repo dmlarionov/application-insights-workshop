@@ -34,6 +34,7 @@ namespace cat
             services.AddApplicationInsightsTelemetry();
 
             services.AddSingleton<CatService>();
+            services.AddSingleton<VaccinationService>();
 
             services.AddHttpClient("grooming", c => c.BaseAddress = new Uri(Configuration["Endpoints:grooming"]));
             services.AddHttpClient("vaccination", c => c.BaseAddress = new Uri(Configuration["Endpoints:vaccination"]));
@@ -41,7 +42,7 @@ namespace cat
 
             services.AddRouting();
 
-            //services.AddControllers();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,31 +55,12 @@ namespace cat
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
-            app.UseEndpoints(e =>
+            app.UseEndpoints(endpoints =>
             {
-                var service = e.ServiceProvider.GetRequiredService<CatService>();
-                e.MapGet("/api/cat", async c => await c.Response.WriteAsJsonAsync(await service.GetAll()));
-                //e.MapGet("/api/cat/{id:string}", async c => await c.Response.WriteAsJsonAsync(await service.Get(Guid.Parse((string)c.Request.RouteValues["id"]))));
-                e.MapPost("/api/cat",
-                    async c =>
-                    {
-                        service.Add(await c.Request.ReadFromJsonAsync<Cat>());
-                        c.Response.StatusCode = 201;
-                    });
-                //e.MapDelete("/api/cat/{id:string}",
-                //    async c =>
-                //    {
-                //        await service.Delete(Guid.Parse((string)c.Request.RouteValues["id"]));
-                //        c.Response.StatusCode = 204;
-                //    });
+                endpoints.MapControllers();
             });
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,8 @@ namespace vaccination
             services.AddSingleton(typeof(ITelemetryChannel), new InMemoryChannel() { DeveloperMode = true });
             services.AddSingleton<ITelemetryInitializer>(new CustomTelemetryInitializer());
             services.AddApplicationInsightsTelemetry();
+
+            services.AddSingleton<VaccinationService>();
 
             services.AddControllers();
         }

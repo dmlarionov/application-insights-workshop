@@ -12,19 +12,20 @@ namespace dog.Services
         private List<Dog> _dogs = new List<Dog>();
         private readonly Random _rnd = new Random();
         private readonly string[] _dogNames = { "Rufus", "Bear", "Dakota", "Fido", "Vanya", "Samuel", "Koani", "Volodya" };
-        private ILogger<DogService> _logger;
+        private readonly ILogger<DogService> _logger;
+        private readonly VaccinationService _vaccination;
 
-        public DogService(ILogger<DogService> logger)//, VaccinationService vaccination)
+        public DogService(ILogger<DogService> logger, VaccinationService vaccination)
         {
             _logger = logger;
-            //_vaccination = vaccination;
+            _vaccination = vaccination;
         }
 
         public Task<List<Dog>> GetAll() => Task.FromResult(_dogs);
 
         public Task<Dog> Get(Guid id) => Task.FromResult(_dogs.Where(c => c.Id == id).FirstOrDefault());
 
-        public (bool, Guid?) Add(Dog dog)
+        public async Task<(bool, Guid?)> Add(Dog dog)
         {
             (bool, Guid?) result;
             if (dog.Id == null)
@@ -39,8 +40,8 @@ namespace dog.Services
                 _logger.LogInformation("Attempt to add a dog without name!");
                 dog.Name = _dogNames[_rnd.Next(_dogNames.Length)];
             }
-            //if (dog.IsVaccinated != true)
-            //    dog.IsVaccinated = await _vaccination.Vaccinate(dog);
+            if (dog.IsVaccinated != true)
+                dog.IsVaccinated = await _vaccination.Vaccinate(dog);
             _dogs.Add(dog);
             result = (true, dog.Id);
 

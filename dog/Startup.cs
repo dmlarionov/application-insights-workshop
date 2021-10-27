@@ -32,6 +32,7 @@ namespace dog
             services.AddApplicationInsightsTelemetry();
 
             services.AddSingleton<DogService>();
+            services.AddSingleton<VaccinationService>();
 
             services.AddHttpClient("grooming", c => c.BaseAddress = new Uri(Configuration["Endpoints:grooming"]));
             services.AddHttpClient("vaccination", c => c.BaseAddress = new Uri(Configuration["Endpoints:vaccination"]));
