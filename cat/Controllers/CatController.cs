@@ -12,29 +12,29 @@ using System.Threading.Tasks;
 
 namespace cat.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CatController : ControllerBase
-    {
-        private readonly CatService _service;
-        private readonly IHttpClientFactory _clientFactory;
-        private readonly ILogger<CatController> _logger;
+    //[Route("api/[controller]")]
+    //[ApiController]
+    //public class CatController : ControllerBase
+    //{
+    //    private readonly CatService _service;
+    //    private readonly IHttpClientFactory _clientFactory;
+    //    private readonly ILogger<CatController> _logger;
 
-        public CatController(CatService service, IHttpClientFactory clientFactory, ILogger<CatController> logger)
-        {
-            _service = service;
-            _clientFactory = clientFactory;
-            _logger = logger;
-        }
+    //    public CatController(CatService service, IHttpClientFactory clientFactory, ILogger<CatController> logger)
+    //    {
+    //        _service = service;
+    //        _clientFactory = clientFactory;
+    //        _logger = logger;
+    //    }
 
-        [HttpGet]
-        public Task<List<Cat>> Get() => _service.GetAll();
+    //    [HttpGet]
+    //    public Task<List<Cat>> Get() => _service.GetAll();
 
-        [HttpPost]
-        public async Task<IActionResult> PostDog(Cat cat)
-        {
-            _service.Add(cat);
-            return StatusCode(StatusCodes.Status201Created);
-        }
-    }
+    //    [HttpPost]
+    //    public IActionResult PostCat(Cat cat)
+    //    {
+    //        _service.Add(cat);
+    //        return StatusCode(StatusCodes.Status201Created);
+    //    }
+    //}
 }
