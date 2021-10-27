@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace pet.Controllers
@@ -21,6 +22,24 @@ namespace pet.Controllers
         {
             _clientFactory = clientFactory;
             _logger = logger;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GenDog()
+        {
+            _logger.LogInformation("Generating a dog");
+            var client = _clientFactory.CreateClient("dog");
+            var response = client.PostAsJsonAsync("api/dog", new { Id = Guid.NewGuid() });
+            return new ObjectResult(new { }) { StatusCode = (int)(await response).StatusCode };
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GenCat()
+        {
+            _logger.LogInformation("Generating a cat");
+            var client = _clientFactory.CreateClient("cat");
+            var response = client.PostAsJsonAsync("api/cat", new { Id = Guid.NewGuid() });
+            return new ObjectResult(new { }) { StatusCode = (int)(await response).StatusCode };
         }
 
         [HttpPost]

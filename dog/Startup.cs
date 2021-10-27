@@ -1,3 +1,4 @@
+using dog.Services;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,8 @@ namespace dog
             services.AddSingleton(typeof(ITelemetryChannel), new InMemoryChannel() { DeveloperMode = true });
             services.AddSingleton<ITelemetryInitializer>(new CustomTelemetryInitializer());
             services.AddApplicationInsightsTelemetry();
+
+            services.AddSingleton<DogService>();
 
             services.AddHttpClient("grooming", c => c.BaseAddress = new Uri(Configuration["Endpoints:grooming"]));
             services.AddHttpClient("vaccination", c => c.BaseAddress = new Uri(Configuration["Endpoints:vaccination"]));

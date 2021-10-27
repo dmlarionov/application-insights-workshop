@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 namespace apigw.DTO
 {
-    public record GenPetsDto(double value);
+    public record GenPetRequest(string kindOfPet);
 }

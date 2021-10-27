@@ -23,22 +23,23 @@ namespace apigw.Controllers
             _logger = logger;
         }
 
-        [HttpPost("cat/generate")]
-        public async Task<IActionResult> GenCat()
+        [HttpPost("pets/generate")]
+        public async Task<IActionResult> GenPets([FromBody] GenPetRequest request)
         {
-            _logger.LogInformation("Generating a cat");
-            var client = _clientFactory.CreateClient("pet");
-            var result = await client.PostAsJsonAsync("api/pets/gencat", new { });
-            return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
-        }
-
-        [HttpPost("dog/generate")]
-        public async Task<IActionResult> GenDog()
-        {
-            _logger.LogInformation("Generating a dog");
-            var client = _clientFactory.CreateClient("pet");
-            var result = await client.PostAsJsonAsync("api/pets/gendog", new { });
-            return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
+            Task<HttpResponseMessage> response = null;
+            if (request.kindOfPet == "dog")
+            {
+                _logger.LogInformation("Generating a dog");
+                var client = _clientFactory.CreateClient("pet");
+                response = client.PostAsJsonAsync("api/pets/gendog", new { });
+            }
+            else
+            {
+                _logger.LogInformation("Generating a cat");
+                var client = _clientFactory.CreateClient("pet");
+                response = client.PostAsJsonAsync("api/pets/gencat", new { });
+            }
+            return new ObjectResult(new { }) { StatusCode = (int)(await response).StatusCode };
         }
 
         [HttpPost("pets/groom")]
