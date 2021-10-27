@@ -1,5 +1,6 @@
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace apigw
+namespace pet
 {
     public class Startup
     {
@@ -26,13 +27,19 @@ namespace apigw
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var appInsightsOptions = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions();
-            //appInsightsOptions.EnableAdaptiveSampling = false;
             services.AddSingleton(typeof(ITelemetryChannel), new InMemoryChannel() { DeveloperMode = true });
             services.AddSingleton<ITelemetryInitializer>(new CustomTelemetryInitializer());
             services.AddApplicationInsightsTelemetry();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Audience = "http://localhost:5001/";
+                    options.Authority = "http://localhost:5000/";
+                    options.RequireHttpsMetadata = false;
+                });
 
-            services.AddHttpClient("pet", c => c.BaseAddress = new Uri(Configuration["Endpoints:pet"]));
+            services.AddHttpClient("cat", c => c.BaseAddress = new Uri(Configuration["Endpoints:cat"]));
+            services.AddHttpClient("dog", c => c.BaseAddress = new Uri(Configuration["Endpoints:dog"]));
             services.AddHttpClient("foo", c => c.BaseAddress = new Uri(Configuration["Endpoints:foo"]));
             services.AddHttpClient("bar", c => c.BaseAddress = new Uri(Configuration["Endpoints:bar"]));
 
@@ -42,14 +49,6 @@ namespace apigw
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-            //var builder = configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder;
-
-            //// Using fixed rate sampling
-            //double fixedSamplingPercentage = 100;
-            //builder.UseSampling(fixedSamplingPercentage);
-            //builder.Build();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

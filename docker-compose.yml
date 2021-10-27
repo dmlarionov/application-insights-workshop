@@ -1,0 +1,84 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq
+  cli:
+    build:
+      dockerfile: Dockerfile.cli
+      context: ./
+    depends_on:
+      - rabbitmq
+      - apigw
+      - bar
+      - cat
+      - dog
+      - foo
+      - name
+      - pet
+      - vaccination
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  apigw:
+    build:
+      dockerfile: Dockerfile.apigw
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  pet:
+    build:
+      dockerfile: Dockerfile.pet
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  bar:
+    build:
+      dockerfile: Dockerfile.bar
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  cat:
+    build:
+      dockerfile: Dockerfile.cat
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  foo:
+    build:
+      dockerfile: Dockerfile.foo
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  dog:
+    build:
+      dockerfile: Dockerfile.dog
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  name:
+    build:
+      dockerfile: Dockerfile.name
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq
+  vaccination:
+    build:
+      dockerfile: Dockerfile.vaccination
+      context: ./
+    depends_on:
+      - rabbitmq
+    environment:
+      - RabbitMQ__Connection__Hostname=rabbitmq

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace apigw
+namespace sterilization
 {
     public class Startup
     {
@@ -26,30 +26,15 @@ namespace apigw
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var appInsightsOptions = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions();
-            //appInsightsOptions.EnableAdaptiveSampling = false;
             services.AddSingleton(typeof(ITelemetryChannel), new InMemoryChannel() { DeveloperMode = true });
             services.AddSingleton<ITelemetryInitializer>(new CustomTelemetryInitializer());
             services.AddApplicationInsightsTelemetry();
-
-            services.AddHttpClient("pet", c => c.BaseAddress = new Uri(Configuration["Endpoints:pet"]));
-            services.AddHttpClient("foo", c => c.BaseAddress = new Uri(Configuration["Endpoints:foo"]));
-            services.AddHttpClient("bar", c => c.BaseAddress = new Uri(Configuration["Endpoints:bar"]));
-
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-            //var builder = configuration.DefaultTelemetrySink.TelemetryProcessorChainBuilder;
-
-            //// Using fixed rate sampling
-            //double fixedSamplingPercentage = 100;
-            //builder.UseSampling(fixedSamplingPercentage);
-            //builder.Build();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

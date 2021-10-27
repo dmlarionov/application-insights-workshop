@@ -3,13 +3,21 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:60058",
+      "applicationUrl": "http://localhost:18734",
       "sslPort": 0
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "apigw": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "weatherforecast",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "sterilization": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
@@ -21,6 +29,7 @@
     },
     "Docker": {
       "commandName": "Docker",
+      "launchBrowser": false,
       "environmentVariables": {
         "APPINSIGHTS_INSTRUMENTATIONKEY": "603d1f1d-2ec9-4d9d-9611-938dca9aa5e9"
       },

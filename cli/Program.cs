@@ -17,13 +17,31 @@ using (var http = new HttpClient())
     // options
     var options = new Dictionary<char, (string, Func<Task<HttpResponseMessage>>)>
     {
-        { '1', ( "Gen Pets", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/generate", new GenPetsDto(100)) ) }
+        { '1', ( "Gen a cat", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/cat/generate", new { }) ) },
+        { '2', ( "Gen a dog", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/dog/generate", new { }) ) },
+        { '3', ( "Groom pets", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/groom", new { }) ) },
+        { '4', ( "Play with pets", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/play", new { }) ) }
     };
 
     ShowOptions(options);
 
     // execution loop
-    while (await TakeAction(options)) { }
+    bool ok = true;
+    do
+    {
+        try
+        {
+            ok = await TakeAction(options);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine();
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("Error: " + ex.Message);
+            Console.WriteLine("----------------------------------------");
+        }
+    }
+    while (ok);
 }
 
 Console.WriteLine("Bye!");
@@ -60,5 +78,3 @@ static async Task<bool> TakeAction(IDictionary<char, (string, Func<Task<HttpResp
             return true;
     }
 }
-
-record GenPetsDto(double value);

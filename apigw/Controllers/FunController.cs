@@ -23,17 +23,40 @@ namespace apigw.Controllers
             _logger = logger;
         }
 
-        [HttpPost("pets/generate")]
-        public async Task<IActionResult> GenPets([FromBody] GenPetsDto val)
+        [HttpPost("cat/generate")]
+        public async Task<IActionResult> GenCat()
         {
-            //var client = _clientFactory.CreateClient("pet");
-            //var result = await client.PostAsJsonAsync("api/pet/genpets", val);
-            //if (!result.IsSuccessStatusCode)
-            //{
-            //    _logger.LogError("Something went wrong!");
-            //    return StatusCode(StatusCodes.Status500InternalServerError);
-            //}
-            return Ok();
+            _logger.LogInformation("Generating a cat");
+            var client = _clientFactory.CreateClient("pet");
+            var result = await client.PostAsJsonAsync("api/pets/gencat", new { });
+            return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
+        }
+
+        [HttpPost("dog/generate")]
+        public async Task<IActionResult> GenDog()
+        {
+            _logger.LogInformation("Generating a dog");
+            var client = _clientFactory.CreateClient("pet");
+            var result = await client.PostAsJsonAsync("api/pets/gendog", new { });
+            return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
+        }
+
+        [HttpPost("pets/groom")]
+        public async Task<IActionResult> GroomPets()
+        {
+            _logger.LogInformation("Grooming the pets");
+            var client = _clientFactory.CreateClient("pet");
+            var result = await client.PostAsJsonAsync("api/pets/groom", new { });
+            return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
+        }
+
+        [HttpPost("pets/play")]
+        public async Task<IActionResult> KillPets()
+        {
+            _logger.LogInformation("Playing the pets");
+            var client = _clientFactory.CreateClient("pet");
+            var result = await client.PostAsJsonAsync("api/pets/play", new { }).ConfigureAwait(true);
+            return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
         }
     }
 }
