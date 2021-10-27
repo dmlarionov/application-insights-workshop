@@ -31,9 +31,9 @@ namespace dog.Controllers
         public Task<List<Dog>> Get() => _service.GetAll();
 
         [HttpPost]
-        public IActionResult PostDog(Dog dog)
+        public async Task<IActionResult> PostDog(Dog dog)
         {
-            _service.Add(dog);
+            await _service.Add(dog);
             return StatusCode(StatusCodes.Status201Created);
         }
     }

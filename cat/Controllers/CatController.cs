@@ -31,9 +31,9 @@ namespace cat.Controllers
         public Task<List<Cat>> Get() => _service.GetAll();
 
         [HttpPost]
-        public IActionResult PostCat(Cat cat)
+        public async Task<IActionResult> PostCat(Cat cat)
         {
-            _service.Add(cat);
+            await _service.Add(cat);
             return StatusCode(StatusCodes.Status201Created);
         }
     }

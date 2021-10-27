@@ -14,13 +14,11 @@ namespace vaccination.Controllers
     [ApiController]
     public class VaccinationController : ControllerBase
     {
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<VaccinationController> _logger;
         private readonly VaccinationService _service;
 
-        public VaccinationController(IHttpClientFactory clientFactory, ILogger<VaccinationController> logger, VaccinationService service)
+        public VaccinationController(ILogger<VaccinationController> logger, VaccinationService service)
         {
-            _clientFactory = clientFactory;
             _logger = logger;
             _service = service;
         }
