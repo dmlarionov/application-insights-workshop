@@ -20,12 +20,13 @@ namespace cat.Services
             _logger = logger;
         }
 
-        public async Task<bool> Vaccinate(Cat cat)
+        public async Task Vaccinate(Cat cat)
         {
             _logger.LogInformation("Vaccinating a cat");
             var client = _clientFactory.CreateClient("vaccination");
             var response = client.PostAsJsonAsync("api/vaccinate", cat);
-            return (await response).StatusCode == System.Net.HttpStatusCode.OK;
+            if ((await response).StatusCode != System.Net.HttpStatusCode.OK)
+                throw new VaccinationException("We can't afford unvaccinated pets");
         }
     }
 }

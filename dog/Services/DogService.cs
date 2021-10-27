@@ -41,7 +41,7 @@ namespace dog.Services
                 dog.Name = _dogNames[_rnd.Next(_dogNames.Length)];
             }
             if (dog.IsVaccinated != true)
-                dog.IsVaccinated = await _vaccination.Vaccinate(dog);
+                await _vaccination.Vaccinate(dog);
             _dogs.Add(dog);
             result = (true, dog.Id);
 

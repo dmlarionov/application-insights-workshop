@@ -41,7 +41,7 @@ namespace cat.Services
                 cat.Name = _catNames[_rnd.Next(_catNames.Length)];
             }
             if (cat.IsVaccinated != true)
-                cat.IsVaccinated = await _vaccination.Vaccinate(cat);
+                await _vaccination.Vaccinate(cat);
             _cats.Add(cat);
             result = (true, cat.Id);
 

@@ -20,12 +20,13 @@ namespace dog.Services
             _logger = logger;
         }
 
-        public async Task<bool> Vaccinate(Dog dog)
+        public async Task Vaccinate(Dog dog)
         {
             _logger.LogInformation("Vaccinating a dog");
             var client = _clientFactory.CreateClient("vaccination");
             var response = client.PostAsJsonAsync("api/vaccinate", dog);
-            return (await response).StatusCode == System.Net.HttpStatusCode.OK;
+            if ((await response).StatusCode != System.Net.HttpStatusCode.OK)
+                throw new VaccinationException("We can't afford unvaccinated pets");
         }
     }
 }
