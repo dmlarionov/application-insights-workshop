@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace apigw.DTO
+namespace grooming.Models
 {
-    public record GenPetRequest(string kindOfPet, int batchSize);
+    public record Hairdresser(string Name);
 }

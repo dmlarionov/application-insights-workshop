@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -24,22 +26,22 @@ namespace apigw.Controllers
         }
 
         [HttpPost("pets/generate")]
-        public async Task<IActionResult> GenPets([FromBody] GenPetRequest request)
+        public IActionResult GenPets([FromBody] GenPetRequest request)
         {
-            Task<HttpResponseMessage> response = null;
-            if (request.kindOfPet == "dog")
-            {
-                _logger.LogInformation("Generating a dog");
-                var client = _clientFactory.CreateClient("pet");
-                response = client.PostAsJsonAsync("api/pets/gendog", new { });
-            }
-            else
-            {
-                _logger.LogInformation("Generating a cat");
-                var client = _clientFactory.CreateClient("pet");
-                response = client.PostAsJsonAsync("api/pets/gencat", new { });
-            }
-            return new ObjectResult(new { }) { StatusCode = (int)(await response).StatusCode };
+            var requests = new List<Task<HttpResponseMessage>>();
+            int numOfPets = request.batchSize;
+            var client = _clientFactory.CreateClient("pet");
+            Func<Task<HttpResponseMessage>> method = (request.kindOfPet == "dog") ?
+                () => client.PostAsJsonAsync("api/pets/gendog", new { }) :
+                () => client.PostAsJsonAsync("api/pets/gencat", new { });
+            _logger.LogInformation($"Generating {numOfPets} pets");
+            for(int i = 0; i < numOfPets; i++)
+                requests.Add(method());
+            requests.ForEach(r => {
+                if (!(r.Result).IsSuccessStatusCode)
+                    throw new PetException("Can't generate a pet");
+            });
+            return Ok();
         }
 
         [HttpPost("pets/groom")]

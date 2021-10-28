@@ -17,8 +17,8 @@ using (var http = new HttpClient())
     // options
     var options = new Dictionary<char, (string, Func<Task<HttpResponseMessage>>)>
     {
-        { '1', ( "Gen a cat", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/generate", new GenPetRequest("cat")) ) },
-        { '2', ( "Gen a dog", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/generate", new GenPetRequest("dog")) ) },
+        { '1', ( "Gen 10 cats", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/generate", new GenPetRequest("cat", 10)) ) },
+        { '2', ( "Gen 10 dogs", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/generate", new GenPetRequest("dog", 10)) ) },
         { '3', ( "Groom pets", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/groom", new { }) ) },
         { '4', ( "Play with pets", async () => await http.PostAsJsonAsync(baseUri + "/api/fun/pets/play", new { }) ) }
     };
@@ -79,4 +79,4 @@ static async Task<bool> TakeAction(IDictionary<char, (string, Func<Task<HttpResp
     }
 }
 
-public record GenPetRequest(string kindOfPet);
+public record GenPetRequest(string kindOfPet, int batchSize);

@@ -1,6 +1,7 @@
 ﻿using cat.Models;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace cat.Services
 {
     public class CatService
     {
-        private List<Cat> _cats = new List<Cat>();
+        private ConcurrentBag<Cat> _cats = new ConcurrentBag<Cat>();
         private readonly Random _rnd = new Random();
         private readonly string[] _catNames = { "Prince", "Yiska", "Bella", "Charlie", "Lucy", "Leo", "Milo", "Jack" };
         private readonly ILogger<CatService> _logger;
@@ -21,7 +22,7 @@ namespace cat.Services
             _vaccination = vaccination;
         }
 
-        public Task<List<Cat>> GetAll() => Task.FromResult(_cats);
+        public Task<List<Cat>> GetAll() => Task.FromResult(_cats.ToList());
 
         public Task<Cat> Get(Guid id) => Task.FromResult(_cats.Where(c => c.Id == id).FirstOrDefault());
 
@@ -48,10 +49,10 @@ namespace cat.Services
             return result;
         }
 
-        public Task Delete(Guid id)
-        {
-            _cats = _cats.Where(c => c.Id != id).ToList();
-            return Task.CompletedTask;
-        }
+        //public Task Delete(Guid id)
+        //{
+        //    _cats = _cats.Where(c => c.Id != id).ToList();
+        //    return Task.CompletedTask;
+        //}
     }
 }

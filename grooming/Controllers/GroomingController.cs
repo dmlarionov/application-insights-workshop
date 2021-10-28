@@ -22,6 +22,6 @@ namespace grooming.Controllers
         }
 
         [HttpPost]
-        public Task Groom(Pet pet) => _service.Groom(pet);
+        public void Groom(Pet pet) => _service.Groom(pet);
     }
 }

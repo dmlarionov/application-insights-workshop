@@ -11,15 +11,14 @@ namespace grooming
     {
         ILogger<GroomingService> _logger;
         private readonly Random _rnd = new Random();
-        private readonly string[] _groomingStyles = { "Neaten", "The Lamb Cut", "The Lion Cut", "The Puppy Cut", "The Schnauzer Cut", "The Teddy Bear Cut", "The Practical Top-Knot" };
 
         public GroomingService(ILogger<GroomingService> logger) => _logger = logger;
 
-        public Task Groom(Pet pet)
+        public void Groom(Pet pet)
         {
-            // take random vaccine
-            var style = _groomingStyles[_rnd.Next(8)];
-            return Task.CompletedTask;
+            // take random offer
+            var offer = GroomingOffer.Current[_rnd.Next(GroomingOffer.Current.Length)];
+            _logger.LogInformation($"Some pet was groomed by {offer.Hairdresser.Name}");
         }
     }
 }
