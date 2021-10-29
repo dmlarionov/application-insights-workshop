@@ -18,7 +18,7 @@ namespace grooming
         {
             // take random offer
             var offer = GroomingOffer.Current[_rnd.Next(GroomingOffer.Current.Length)];
-            _logger.LogInformation($"Some pet was groomed by {offer.Hairdresser.Name}");
+            _logger.LogInformation($"{pet.Name} was groomed by {offer.Hairdresser.Name}");
         }
     }
 }
