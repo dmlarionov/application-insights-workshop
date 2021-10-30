@@ -21,6 +21,7 @@ services:
     hostname: apigw
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
   cat:
     build:
       dockerfile: ./cat/Dockerfile
@@ -28,6 +29,7 @@ services:
     hostname: cat
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
   dog:
     build:
       dockerfile: ./dog/Dockerfile
@@ -35,6 +37,7 @@ services:
     hostname: dog
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
   grooming:
     build:
       dockerfile: ./grooming/Dockerfile
@@ -42,6 +45,7 @@ services:
     hostname: grooming
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
   pet:
     build:
       dockerfile: ./pet/Dockerfile
@@ -49,6 +53,7 @@ services:
     hostname: pet
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
   sterilization:
     build:
       dockerfile: ./sterilization/Dockerfile
@@ -56,6 +61,7 @@ services:
     hostname: sterilization
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
   vaccination:
     build:
       dockerfile: ./vaccination/Dockerfile
@@ -63,3 +69,4 @@ services:
     hostname: vaccination
     environment:
       - APPINSIGHTS_INSTRUMENTATIONKEY
+      - Logging__LogLevel__Default=Debug
