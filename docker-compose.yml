@@ -12,34 +12,36 @@ services:
       - pet
       - sterilization
       - vaccination
+    environment:
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
   apigw:
     build:
       dockerfile: ./apigw/Dockerfile
       context: ./
     hostname: apigw
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
   cat:
     build:
       dockerfile: ./cat/Dockerfile
       context: ./
     hostname: cat
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
   dog:
     build:
       dockerfile: ./dog/Dockerfile
       context: ./
     hostname: dog
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
   grooming:
     build:
       dockerfile: ./grooming/Dockerfile
       context: ./
     hostname: grooming
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
       - Logging__LogLevel__grooming.GroomingService=Debug
   pet:
     build:
@@ -47,18 +49,18 @@ services:
       context: ./
     hostname: pet
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
   sterilization:
     build:
       dockerfile: ./sterilization/Dockerfile
       context: ./
     hostname: sterilization
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
   vaccination:
     build:
       dockerfile: ./vaccination/Dockerfile
       context: ./
     hostname: vaccination
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING={APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}

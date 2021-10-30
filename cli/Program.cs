@@ -10,6 +10,8 @@ var config = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();
 
+Console.WriteLine($"Started with APPLICATIONINSIGHTS_CONNECTION_STRING={Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING")}\n");
+
 var baseUri = config["Endpoints:apigw"];
 
 using (var http = new HttpClient())
