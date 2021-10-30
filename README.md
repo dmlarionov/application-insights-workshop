@@ -11,9 +11,10 @@
 4. Open a command line and execute:
 
 ```powershell
+$env:APPLICATIONINSIGHTS_CONNECTION_STRING='<your string>'
 ```
 
-5. ...
+Don't close terminal, use it to build and run.
 
 # Build and run
 
@@ -23,8 +24,7 @@
 docker-compose run cli
 ```
 
-2. Paste App Insights instrumentation key into CLI.
-3. Play with scenarios 1-2-3-4 in any order. Make your observations (see [below](#Making-observations)).
+2. Play with scenarios 1-2-3-4 in any order. Make your observations (see [below](#Making-observations)).
 5. Wait 5 minutes to be sure statistics is processed.
 6. Press `Ctrl`+`C` to stop `cli` container.
 7. Stop everything else:
