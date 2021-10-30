@@ -2,11 +2,20 @@
 
 ## Preparation
 
-1. Register to Azure.
-2. Deploy Application Insights.
-3. ...
+1. Register to Azure (https://azure.microsoft.com/free/).
+2. Deploy instance of Application Insights.
+3. Take a connection string this way:
 
-## Build and run
+![taking-connection-string](C:\Users\dvlario4\source\inno\application-insights-workshop\_media\taking-connection-string.png)
+
+4. Open a command line and execute:
+
+```powershell
+```
+
+5. ...
+
+# Build and run
 
 1. Start everything and attach to CLI:
 
@@ -15,9 +24,8 @@ docker-compose run cli
 ```
 
 2. Paste App Insights instrumentation key into CLI.
-3. Play with scenarios 1-2-3-4 in any order, but proportionate.
-4. Quit CLI with `q` to force telemetry flushing to the cloud.
-5. Wait a minute.
+3. Play with scenarios 1-2-3-4 in any order. Make your observations (see [below](#Making-observations)).
+5. Wait 5 minutes to be sure statistics is processed.
 6. Press `Ctrl`+`C` to stop `cli` container.
 7. Stop everything else:
 
@@ -25,7 +33,7 @@ docker-compose run cli
 docker-compose down
 ```
 
-## Make your observations
+#### Making observations
 
 While playing with scenarios make your observations:
 
@@ -68,4 +76,5 @@ Go to investigation section.
 8. Where the slowest client requests spend most of the time?
 9. Why one of the scenarios lagging?
 10. How can you quickly check outburst latency for reviewed request / dependency?
-11. How can you see custom event metrics?
+11. How can you see custom event metrics? Group them by vaccine, pet name and kind.
+12. How can you see logs? Filter them by severity level.

@@ -22,7 +22,7 @@ namespace dog.Services
 
         public async Task Vaccinate(Dog dog)
         {
-            _logger.LogInformation("Vaccinating a dog");
+            _logger.LogDebug("Vaccinating a dog");
             var client = _clientFactory.CreateClient("vaccination");
             var response = client.PostAsJsonAsync("api/vaccinate", dog);
             if ((await response).StatusCode != System.Net.HttpStatusCode.OK)

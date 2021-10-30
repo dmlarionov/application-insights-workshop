@@ -9,6 +9,8 @@ namespace grooming.Models
     {
         public Guid? Id { get; set; }
 
+        public string Kind { get; set; }
+
         public string Name { get; set; }
 
         public bool? IsVaccinated { get; set; }

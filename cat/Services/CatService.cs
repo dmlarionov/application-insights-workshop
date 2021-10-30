@@ -38,8 +38,8 @@ namespace cat.Services
             }
             if (cat.Name == null)
             {
-                _logger.LogInformation("Attempt to add a cat without name!");
                 cat.Name = _catNames[_rnd.Next(_catNames.Length)];
+                _logger.LogDebug($"The cat {cat.Name} is added!");
             }
             if (cat.IsVaccinated != true)
                 await _vaccination.Vaccinate(cat);

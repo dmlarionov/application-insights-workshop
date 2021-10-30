@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 namespace vaccination.Models
 {
-    public record Pet(Guid id);
+    public record Pet(Guid id, string Kind, string Name);
 }

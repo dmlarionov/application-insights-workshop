@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace vaccination
     {
 
         ILogger<VaccinationService> _logger;
+        private readonly TelemetryClient _telemetry;
         private readonly Random _rnd = new Random();
         private readonly string[] _certifiedVaccines = {
             "Adenovirus Type 4",
@@ -113,12 +115,18 @@ namespace vaccination
             "Sanofi"
         };
 
-        public VaccinationService(ILogger<VaccinationService> logger) => _logger = logger;
+        public VaccinationService(ILogger<VaccinationService> logger, TelemetryClient telemetry)
+        {
+            _telemetry = telemetry;
+            _logger = logger;
+        }
 
         public Task<VaccinatedPet> Vaccinate(Pet pet)
         {
             // take random vaccine
             var vaccine = _certifiedVaccines[_rnd.Next(100)];
+            _telemetry.GetMetric("PetsVaccinated", "Kind", "Name", "Vaccine")
+                .TrackValue(1, pet.Kind, pet.Name, vaccine);
             return Task.Run(() => new VaccinatedPet(pet.id, vaccine));
         }
     }

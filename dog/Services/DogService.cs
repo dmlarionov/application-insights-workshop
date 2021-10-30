@@ -38,8 +38,8 @@ namespace dog.Services
             }
             if (dog.Name == null)
             {
-                _logger.LogInformation("Attempt to add a dog without name!");
                 dog.Name = _dogNames[_rnd.Next(_dogNames.Length)];
+                _logger.LogDebug($"The dog {dog.Name} is added!");
             }
             if (dog.IsVaccinated != true)
                 await _vaccination.Vaccinate(dog);

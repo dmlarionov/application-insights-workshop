@@ -47,16 +47,16 @@ namespace apigw.Controllers
         [HttpPost("pets/groom")]
         public async Task<IActionResult> GroomPets()
         {
-            _logger.LogInformation("Grooming the pets");
+            _logger.LogInformation("Grooming all the pets");
             var client = _clientFactory.CreateClient("pet");
             var result = await client.PostAsJsonAsync("api/pets/groom", new { });
             return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };
         }
 
         [HttpPost("pets/play")]
-        public async Task<IActionResult> KillPets()
+        public async Task<IActionResult> PlayPets()
         {
-            _logger.LogInformation("Playing the pets");
+            _logger.LogInformation("Going to play with the pets");
             var client = _clientFactory.CreateClient("pet");
             var result = await client.PostAsJsonAsync("api/pets/play", new { }).ConfigureAwait(true);
             return new ObjectResult(new { }) { StatusCode = ((int)result.StatusCode) };

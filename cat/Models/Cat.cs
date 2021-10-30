@@ -9,6 +9,8 @@ namespace cat.Models
     {
         public Guid? Id { get; set; }
 
+        public string Kind { get; init; } = "cat";
+
         public string Name { get; set; }
 
         public bool? IsVaccinated { get; set; }

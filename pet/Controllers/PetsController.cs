@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using pet.Models;
@@ -54,10 +53,12 @@ namespace pet.Controllers
         [HttpPost]
         public async Task<IActionResult> Groom()
         {
-            _logger.LogWarning("Grooming all the pets!!");
+            _logger.LogInformation("Grooming all the pets");
             var pets = (await _clientFactory.CreateClient("dog").GetFromJsonAsync<List<Pet>>("api/dog"))
-                .Concat(await _clientFactory.CreateClient("cat").GetFromJsonAsync<List<Pet>>("api/cat"));
-            foreach(var pet in pets)
+                .Select(i => { i.Kind = "dog"; return i; })
+                .Concat(await _clientFactory.CreateClient("cat").GetFromJsonAsync<List<Pet>>("api/cat"))
+                .Select(i => { i.Kind = "cat"; return i; });
+            foreach (var pet in pets)
             {
                 var response = await _clientFactory.CreateClient("grooming").PostAsJsonAsync("api/groom", pet);
                 if (!response.IsSuccessStatusCode)

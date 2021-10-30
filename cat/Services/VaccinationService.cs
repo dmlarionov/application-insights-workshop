@@ -22,7 +22,7 @@ namespace cat.Services
 
         public async Task Vaccinate(Cat cat)
         {
-            _logger.LogInformation("Vaccinating a cat");
+            _logger.LogDebug("Vaccinating a cat");
             var client = _clientFactory.CreateClient("vaccination");
             var response = client.PostAsJsonAsync("api/vaccinate", cat);
             if ((await response).StatusCode != System.Net.HttpStatusCode.OK)
