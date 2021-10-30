@@ -4,7 +4,7 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=603d1f1d-2ec9-4d9d-9611-938dca9aa5e9;IngestionEndpoint=https://northeurope-2.in.applicationinsights.azure.com/",
+        "APPINSIGHTS_INSTRUMENTATIONKEY": "603d1f1d-2ec9-4d9d-9611-938dca9aa5e9",
         "Endpoints__apigw": "http://localhost:5000"
       }
     }

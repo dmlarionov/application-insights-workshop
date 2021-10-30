@@ -13,54 +13,53 @@ services:
       - sterilization
       - vaccination
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   apigw:
     build:
       dockerfile: ./apigw/Dockerfile
       context: ./
     hostname: apigw
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   cat:
     build:
       dockerfile: ./cat/Dockerfile
       context: ./
     hostname: cat
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   dog:
     build:
       dockerfile: ./dog/Dockerfile
       context: ./
     hostname: dog
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   grooming:
     build:
       dockerfile: ./grooming/Dockerfile
       context: ./
     hostname: grooming
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
-      - Logging__LogLevel__grooming.GroomingService=Debug
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   pet:
     build:
       dockerfile: ./pet/Dockerfile
       context: ./
     hostname: pet
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   sterilization:
     build:
       dockerfile: ./sterilization/Dockerfile
       context: ./
     hostname: sterilization
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY
   vaccination:
     build:
       dockerfile: ./vaccination/Dockerfile
       context: ./
     hostname: vaccination
     environment:
-      - APPLICATIONINSIGHTS_CONNECTION_STRING=${APPLICATIONINSIGHTS_CONNECTION_STRING}
+      - APPINSIGHTS_INSTRUMENTATIONKEY

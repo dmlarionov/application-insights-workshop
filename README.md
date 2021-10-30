@@ -4,14 +4,20 @@
 
 1. Register to Azure (https://azure.microsoft.com/free/).
 2. Deploy instance of Application Insights.
-3. Take a connection string this way:
+3. Take an instrumentation key this way:
 
-![taking-connection-string](C:\Users\dvlario4\source\inno\application-insights-workshop\_media\taking-connection-string.png)
+![taking-connection-string](C:\Users\dvlario4\source\inno\application-insights-workshop\_media\taking-key.png)
 
 4. Open a command line and execute:
 
+```bash
+export APPINSIGHTS_INSTRUMENTATIONKEY=<key>
+```
+
+or (if you are in PowerShell):
+
 ```powershell
-$env:APPLICATIONINSIGHTS_CONNECTION_STRING='<your string>'
+$env:APPINSIGHTS_INSTRUMENTATIONKEY=<key>
 ```
 
 Don't close terminal, use it to build and run.
