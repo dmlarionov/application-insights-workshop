@@ -6,18 +6,18 @@
 2. Deploy instance of Application Insights.
 3. Take an instrumentation key this way:
 
-![taking-connection-string](C:\Users\dvlario4\source\inno\application-insights-workshop\_media\taking-key.png)
+![taking-connection-string](./_media/taking-key.png)
 
 4. Open a command line and execute:
 
 ```bash
-export APPINSIGHTS_INSTRUMENTATIONKEY=<key>
+export APPINSIGHTS_INSTRUMENTATIONKEY=..key..
 ```
 
 or (if you are in PowerShell):
 
 ```powershell
-$env:APPINSIGHTS_INSTRUMENTATIONKEY=<key>
+$env:APPINSIGHTS_INSTRUMENTATIONKEY=..key..
 ```
 
 Don't close terminal, use it to build and run.
